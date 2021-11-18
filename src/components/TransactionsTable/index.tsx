@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
-import { api } from '../../services/api';
+import { useTransactions } from '../../hooks/useTransactions';
 import { Container } from './styles';
 
 export function TransactionsTable() {
-  useEffect(() => {
-    api.get('transactions').then((response) => console.log(response.data));
-  }, []);
+  const { transactions } = useTransactions();
+
   return (
     <Container>
       <table>
@@ -18,18 +16,32 @@ export function TransactionsTable() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimento de WebSite</td>
-            <td className="income">R$ 1000,00</td>
-            <td>Trabalho</td>
-            <td>20/02/2021</td>
-          </tr>
-          <tr>
-            <td>Aluguel</td>
-            <td className="outcome">-R$ 500,00</td>
-            <td>Casa</td>
-            <td>20/02/2021</td>
-          </tr>
+          {transactions.length > 0 ? (
+            transactions.map((transaction) => (
+              <tr key={transaction.id}>
+                <td>{transaction.title}</td>
+                <td className={transaction.type}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(transaction.amount)}
+                </td>
+                <td>{transaction.category}</td>
+                <td>{new Intl.DateTimeFormat('pt-BR').format(new Date(transaction.createdAt))}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={4}
+                style={{
+                  textAlign: 'center',
+                }}
+              >
+                Ainda não existem transações a serem mostradas =]
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </Container>
