@@ -34,7 +34,11 @@ This project was developed with the following technologies:
 
 The application can be accessed at [`localhost:3000`](http://localhost:3000)
 
-You can access the live web application [`clicking here`](https://dtmoney.netlify.app/).
+You can access the live web application [`clicking here`](https://dtmoney-julio-zittei.netlify.app/).
+
+<p align="center">
+  <img alt="app" src=".github/qr-code.png" width="50%">
+</p>
 
 ## 📄 License
 
